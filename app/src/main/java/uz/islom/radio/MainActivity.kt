@@ -10,76 +10,50 @@ import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
 import android.net.Uri
-import android.opengl.GLSurfaceView
 import android.os.*
 import android.provider.Settings
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import com.yalantis.audio.lib.AudioUtil
 import com.yalantis.waves.util.Horizon
+import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity(), ServiceConnection, PlayerService.OnStateChangedListener, View.OnClickListener, AudioRecord.OnRecordPositionUpdateListener{
-
+class MainActivity : AppCompatActivity(),
+        ServiceConnection,
+        PlayerService.OnStateChangedListener,
+        View.OnClickListener,
+        AudioRecord.OnRecordPositionUpdateListener {
 
     private var audioRecord: AudioRecord? = null
-    private var horizon: Horizon? = null
-    private var surface: GLSurfaceView? = null
-    private var play: ImageView? = null
-    private var error: TextView? = null
-    private var title:TextView? = null
+    private lateinit var horizon: Horizon
     private var playerService: PlayerService? = null
     private var serviceIntent: Intent? = null
     private var buffer: ByteArray? = null
-    private var share:TextView? = null
-    private var site:TextView? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        surface = findViewById(R.id.surface)
-        error = findViewById(R.id.error)
-        play = findViewById(R.id.play)
-        title = findViewById(R.id.title)
-        site = findViewById(R.id.site)
-        share = findViewById(R.id.share)
-
-        play!!.setOnClickListener(this)
-        share!!.setOnClickListener(this)
-        site!!.setOnClickListener(this)
-
-        horizon = Horizon(surface!!, resources.getColor(R.color.bg), 44100, 1, 16)
-        horizon!!.setMaxVolumeDb(120)
-
+        lifecycle.addObserver(SurfaceListener(surfaceView))
+        ivPlay.setOnClickListener(this)
+        tvShare.setOnClickListener(this)
+        tvSite.setOnClickListener(this)
+        horizon = Horizon(surfaceView, ContextCompat.getColor(this, R.color.bg), 44100, 1, 16)
+        horizon.setMaxVolumeDb(120)
         serviceIntent = Intent(this, PlayerService::class.java)
 
     }
 
-
     override fun onStart() {
         super.onStart()
         bindService(serviceIntent, this, Context.BIND_AUTO_CREATE)
-        if(playerService!=null && playerService!!.isPlaying()){
+        if (playerService != null && playerService!!.isPlaying()) {
             record()
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        surface!!.onResume()
-
-    }
-
-    override fun onPause() {
-        super.onPause()
-        surface!!.onPause()
     }
 
     override fun onStop() {
@@ -90,44 +64,44 @@ class MainActivity : AppCompatActivity(), ServiceConnection, PlayerService.OnSta
 
     override fun onServiceConnected(name: ComponentName, service: IBinder) {
         playerService = (service as PlayerService.PlayerBinder).service
-        playerService!!.setOnStateChangedListener(this)
+        playerService?.setOnStateChangedListener(this)
     }
 
     override fun onServiceDisconnected(name: ComponentName) {
-        playerService!!.setOnStateChangedListener(null)
+        playerService?.setOnStateChangedListener(null)
     }
 
     override fun onStateChanged(state: Int) {
         when (state) {
             1 -> {
-                error!!.visibility = View.INVISIBLE
-                surface!!.visibility = View.VISIBLE
+                tvError.visibility = View.INVISIBLE
+                surfaceView.visibility = View.VISIBLE
                 record()
-                play!!.setImageResource(R.drawable.ic_stop_big)
+                ivPlay.setImageResource(R.drawable.ic_stop_big)
             }
             0 -> {
-                error!!.visibility = View.INVISIBLE
-                surface!!.visibility = View.VISIBLE
+                tvError.visibility = View.INVISIBLE
+                surfaceView.visibility = View.VISIBLE
                 stopRecording()
-                play!!.setImageResource(R.drawable.ic_start_big)
+                ivPlay.setImageResource(R.drawable.ic_start_big)
             }
             -1 -> {
-                error!!.visibility = View.INVISIBLE
-                surface!!.visibility = View.VISIBLE
+                tvError.visibility = View.INVISIBLE
+                surfaceView.visibility = View.VISIBLE
                 stopService(serviceIntent)
                 Handler().postDelayed({ finish() }, 50)
             }
             -2 -> {
-                error!!.visibility = View.VISIBLE
+                tvError.visibility = View.VISIBLE
                 stopRecording()
-                surface!!.visibility = View.INVISIBLE
+                surfaceView!!.visibility = View.INVISIBLE
             }
         }
     }
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.play ->{
+            R.id.ivPlay -> {
                 if (playerService!!.isPlaying()) {
                     serviceIntent!!.action = STOP
                     startService(serviceIntent)
@@ -136,11 +110,11 @@ class MainActivity : AppCompatActivity(), ServiceConnection, PlayerService.OnSta
                     startService(serviceIntent)
                 }
             }
-            R.id.site -> {
+            R.id.tvSite -> {
                 val adhanUz = Intent(Intent.ACTION_VIEW, Uri.parse(WEBSITE))
                 startActivity(adhanUz)
             }
-            R.id.share ->{
+            R.id.tvShare -> {
                 val shareBody = resources.getString(R.string.share_link)
                 val sharingIntent = Intent(android.content.Intent.ACTION_SEND)
                 sharingIntent.type = "text/plain"
@@ -156,7 +130,7 @@ class MainActivity : AppCompatActivity(), ServiceConnection, PlayerService.OnSta
 
     override fun onPeriodicNotification(recorder: AudioRecord) {
         if (audioRecord!!.recordingState == AudioRecord.RECORDSTATE_RECORDING && audioRecord!!.read(buffer!!, 0, buffer!!.size) != -1) {
-            horizon!!.updateView(buffer!!)
+            horizon.updateView(buffer!!)
         }
     }
 
@@ -195,13 +169,13 @@ class MainActivity : AppCompatActivity(), ServiceConnection, PlayerService.OnSta
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         if (requestCode == 101) {
-            if(grantResults[0]==PackageManager.PERMISSION_GRANTED){
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 startRecording()
-            }else if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.RECORD_AUDIO)){
+            } else if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECORD_AUDIO)) {
                 openSettings()
-            }else {
+            } else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO),101)
+                    requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO), 101)
                 }
             }
         }
@@ -210,24 +184,24 @@ class MainActivity : AppCompatActivity(), ServiceConnection, PlayerService.OnSta
 
 
     override fun onMetaChanged(title: String?) {
-        this.title!!.text = title
+        this.tvTitle.text = title
     }
 
 
-    private fun record(){
-        if(ContextCompat.checkSelfPermission(this,Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED){
+    private fun record() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
             startRecording()
-        }else {
-            if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.RECORD_AUDIO)){
+        } else {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECORD_AUDIO)) {
                 openSettings()
-            }else {
-                ActivityCompat.requestPermissions(this,arrayOf(Manifest.permission.RECORD_AUDIO),101)
+            } else {
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), 101)
             }
         }
     }
 
-    private fun stopRecording(){
-        surface!!.onPause()
+    private fun stopRecording() {
+        surfaceView!!.onPause()
         if (audioRecord != null) {
             audioRecord!!.release()
         }

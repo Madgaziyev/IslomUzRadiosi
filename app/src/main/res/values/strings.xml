@@ -5,5 +5,6 @@
     <string name="share_head">Islom.uz радиосини юклаб олиш</string>
     <string name="error">Қандайдир <b>хато</b> бўлди\nИнтернет уланганми?\nТекшириб, тугмани бошқатдан босиб кўринг</string>
     <string name="settings">Дастур яхши ишлаши учун рухсатномани ёқинг</string>
-    <string name="share_link">https://play.google.com/store/apps/details?id=uz.islom.radio</string>
+    <string name="share_link">https://ivPlay.google.com/store/apps/details?id=uz.islom.radio</string>
+    <string name="none">""</string>
 </resources>

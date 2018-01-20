@@ -19,3 +19,9 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+#exoplayer
+-keepclasseswithmembernames,includedescriptorclasses class* {
+     native <methods>;
+ }
+ -keep class com.google.android.exoplayer.** {*;}
