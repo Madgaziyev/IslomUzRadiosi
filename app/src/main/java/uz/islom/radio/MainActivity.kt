@@ -51,9 +51,6 @@ class MainActivity : AppCompatActivity(),
     override fun onStart() {
         super.onStart()
         bindService(serviceIntent, this, Context.BIND_AUTO_CREATE)
-        if (playerService != null && playerService!!.isPlaying()) {
-            record()
-        }
     }
 
     override fun onStop() {
@@ -76,7 +73,9 @@ class MainActivity : AppCompatActivity(),
             1 -> {
                 tvError.visibility = View.INVISIBLE
                 surfaceView.visibility = View.VISIBLE
+                tvTitle.visibility= View.VISIBLE
                 record()
+                surfaceView!!.onResume()
                 ivPlay.setImageResource(R.drawable.ic_stop_big)
             }
             0 -> {
@@ -86,15 +85,13 @@ class MainActivity : AppCompatActivity(),
                 ivPlay.setImageResource(R.drawable.ic_start_big)
             }
             -1 -> {
-                tvError.visibility = View.INVISIBLE
-                surfaceView.visibility = View.VISIBLE
                 stopService(serviceIntent)
                 Handler().postDelayed({ finish() }, 50)
             }
             -2 -> {
                 tvError.visibility = View.VISIBLE
-                stopRecording()
                 surfaceView!!.visibility = View.INVISIBLE
+                tvTitle.visibility= View.INVISIBLE
             }
         }
     }
@@ -201,7 +198,6 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun stopRecording() {
-        surfaceView!!.onPause()
         if (audioRecord != null) {
             audioRecord!!.release()
         }

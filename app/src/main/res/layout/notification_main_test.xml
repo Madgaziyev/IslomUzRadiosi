@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/notification_adhanFm_root"
+    android:id="@+id/notification_root"
     android:layout_width="match_parent"
     android:layout_height="64dp"
     android:paddingEnd="8dp"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:textColor="@color/colorPrimary"
-        android:textSize="14sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/notification_adhanFm_image"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,7 +41,7 @@
         app:layout_constraintStart_toEndOf="@+id/notification_adhanFm_image" />
 
     <ImageButton
-        android:id="@+id/notification_adhanFm_start"
+        android:id="@+id/notification_start"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:background="@color/transparent"
@@ -53,7 +53,7 @@
         app:srcCompat="@drawable/ic_start" />
 
     <ImageButton
-        android:id="@+id/notification_adhanFm_close"
+        android:id="@+id/notification_close"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:background="@color/transparent"

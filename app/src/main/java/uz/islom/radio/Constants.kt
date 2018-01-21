@@ -15,4 +15,4 @@ val CLOSE = "uz.islom.radio.islomfm.adhanFm.action.close"
 val NOTIFICATION_CHANNEL_ID = "playing_notification"
 val ADDRESS = "http://35.161.122.89:8000/islomuz"
 val WEBSITE = "http://islom.uz"
-val KADIROV = "http://kadirov.me"
+

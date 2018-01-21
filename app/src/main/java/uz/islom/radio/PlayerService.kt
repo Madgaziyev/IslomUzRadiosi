@@ -101,6 +101,10 @@ class PlayerService : Service(), AudioManager.OnAudioFocusChangeListener, OnNewM
 
     fun setOnStateChangedListener(onStateChangedListener: OnStateChangedListener?) {
         this.onStateChangedListener = onStateChangedListener
+        if(playing==true){
+            onStateChangedListener?.onStateChanged(1)
+            onStateChangedListener?.onMetaChanged(title)
+        }
     }
 
     fun isPlaying(): Boolean = ( playing!=null && playing==true)
@@ -124,20 +128,26 @@ class PlayerService : Service(), AudioManager.OnAudioFocusChangeListener, OnNewM
         stop = PendingIntent.getService(this, 0, stopIntent, 0)
 
         notificationLayout = RemoteViews(packageName, R.layout.notification_main)
-        notificationLayout!!.setOnClickPendingIntent(R.id.notification_adhanFm_root, open)
-        notificationLayout!!.setOnClickPendingIntent(R.id.notification_adhanFm_close, close)
+        notificationLayout!!.setOnClickPendingIntent(R.id.notification_root, open)
+        notificationLayout!!.setOnClickPendingIntent(R.id.notification_close, close)
     }
 
     private fun updateNotification() {
 
-        notificationLayout!!.setTextViewText(R.id.notification_title,title)
+        var a:String?
+        if(title!!.length>17){
+            a = title?.substring(0,17)+"..."
+        }else {
+            a = title
+        }
+        notificationLayout!!.setTextViewText(R.id.notification_title,a)
 
         if (playing!!) {
-            notificationLayout!!.setImageViewResource(R.id.notification_adhanFm_start, R.drawable.ic_stop)
-            notificationLayout!!.setOnClickPendingIntent(R.id.notification_adhanFm_start, stop)
+            notificationLayout!!.setImageViewResource(R.id.notification_start, R.drawable.ic_stop)
+            notificationLayout!!.setOnClickPendingIntent(R.id.notification_start, stop)
         } else {
-            notificationLayout!!.setImageViewResource(R.id.notification_adhanFm_start, R.drawable.ic_start)
-            notificationLayout!!.setOnClickPendingIntent(R.id.notification_adhanFm_start, start)
+            notificationLayout!!.setImageViewResource(R.id.notification_start, R.drawable.ic_start)
+            notificationLayout!!.setOnClickPendingIntent(R.id.notification_start, start)
         }
 
         val notification = NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
@@ -197,6 +207,7 @@ class PlayerService : Service(), AudioManager.OnAudioFocusChangeListener, OnNewM
         } catch (e: Exception) {
             if (null != onStateChangedListener) {
                 onStateChangedListener!!.onStateChanged(-2)
+                stopSelf()
             }
         }
 
@@ -252,12 +263,8 @@ class PlayerService : Service(), AudioManager.OnAudioFocusChangeListener, OnNewM
     }
 
     override fun onNewStreamTitle(stringUri: String?, streamTitle: String?) {
-        if(streamTitle!=null && streamTitle.length>17){
-            title=streamTitle.substring(0,17)
-            title+="..."
-        }
+        onStateChangedListener!!.onMetaChanged(streamTitle)
         title = streamTitle
-        onStateChangedListener!!.onMetaChanged(title)
         updateNotification()
     }
 
