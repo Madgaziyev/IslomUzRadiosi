@@ -1,30 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/notification_adhanFm_root"
     android:layout_width="match_parent"
     android:layout_height="64dp"
-    android:paddingStart="8dp"
     android:paddingEnd="8dp"
-    >
+    android:paddingStart="8dp">
+
     <ImageView
         android:id="@+id/notification_adhanFm_image"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:padding="8dp"
         android:layout_gravity="start"
-        android:src="@mipmap/ic_launcher"
-        />
+        android:padding="8dp"
+        android:src="@mipmap/ic_launcher" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginEnd="96dp"
+        android:layout_marginLeft="64dp"
         android:layout_marginRight="96dp"
         android:layout_marginStart="64dp"
-        android:layout_marginLeft="64dp"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/notification_title"
@@ -32,8 +30,8 @@
             android:layout_height="wrap_content"
 
             android:padding="8dp"
-            android:textSize="14sp"
             android:textColor="@color/colorPrimary"
+            android:textSize="14sp"
 
             />
 
@@ -44,9 +42,8 @@
 
             android:padding="8dp"
             android:text="@string/app_name"
-            android:textSize="12sp"
             android:textColor="@color/colorPrimary"
-            />
+            android:textSize="12sp" />
 
     </LinearLayout>
 
@@ -55,25 +52,21 @@
         android:id="@+id/notification_adhanFm_start"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:layout_gravity="end|center_vertical"
         android:layout_marginEnd="48dp"
         android:layout_marginRight="48dp"
-        android:padding="8dp"
-        android:layout_gravity="end|center_vertical"
-
-        android:src="@drawable/ic_start"
         android:background="@color/transparent"
-        />
+        android:padding="8dp"
+        android:src="@drawable/ic_start" />
 
     <ImageButton
         android:id="@+id/notification_adhanFm_close"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:padding="8dp"
         android:layout_gravity="end|center_vertical"
-
-        android:src="@drawable/ic_close"
         android:background="@color/transparent"
-        />
+        android:padding="8dp"
+        android:src="@drawable/ic_close" />
 
 
 </FrameLayout>

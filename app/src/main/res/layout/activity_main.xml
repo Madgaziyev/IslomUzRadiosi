@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,81 +8,62 @@
     android:padding="16dp"
     tools:context=".MainActivity">
 
-
     <android.opengl.GLSurfaceView
-        android:id="@+id/surface"
-        android:layout_width="match_parent"
-        android:layout_height="256dp"
-        android:layout_centerVertical="true"
-        />
-
-    <TextView
-        android:id="@+id/title"
+        android:id="@+id/surfaceView"
+        style="@style/AppTheme.Base"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:paddingTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tvTitle"
+        style="@style/AppTheme.Base"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:textSize="20sp"
         android:textColor="@color/textColor"
-        />
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="parent" />
 
-
-    <TextView
-        android:id="@+id/error"
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tvError"
+        style="@style/AppTheme.Base"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:text="@string/error"
         android:textColor="@color/colorAccent"
         android:textSize="20sp"
         android:visibility="invisible"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tvSite"
+        style="@style/AppTheme.ControllerTextViewStyle"
+        android:text="@string/website"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivPlay" />
 
-    <LinearLayout
-        android:id="@+id/controller"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/ivPlay"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        >
+        android:contentDescription="@string/none"
+        android:src="@drawable/ic_start_big"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvShare"
+        app:layout_constraintStart_toEndOf="@+id/tvSite" />
 
-        <TextView
-            android:id="@+id/site"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tvShare"
+        style="@style/AppTheme.ControllerTextViewStyle"
+        android:text="@string/share"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivPlay" />
 
-            android:text="@string/website"
-            android:textColor="@color/textColor"
-            android:textSize="16sp"
-            />
-
-        <ImageView
-            android:id="@+id/play"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-
-            android:src="@drawable/ic_start_big"
-            />
-
-        <TextView
-            android:id="@+id/share"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-
-            android:text="@string/share"
-            android:textColor="@color/textColor"
-            android:textSize="16sp"
-            />
-
-    </LinearLayout>
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

@@ -8,4 +8,19 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.Base" >
+        <!-- Customize your theme here. -->
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:padding">4dp</item>
+    </style>
+
+    <style name="AppTheme.ControllerTextViewStyle" parent="AppTheme.Base">
+        <!-- Customize your theme here. -->
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
 </resources>
