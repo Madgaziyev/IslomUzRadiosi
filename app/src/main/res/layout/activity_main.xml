@@ -1,20 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:vumeter="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg"
-    android:padding="16dp"
     tools:context=".MainActivity">
 
-    <android.opengl.GLSurfaceView
-        android:id="@+id/surfaceView"
-        style="@style/AppTheme.Base"
+    <WebView
+        android:id="@+id/wv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="1dp">
+
+    </WebView>
+
+
+    <io.gresse.hugo.vumeterlibrary.VuMeterView
+        android:id="@+id/vumeter"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/controller"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        vumeter:vumeter_backgroundColor="@color/textColor"
+        vumeter:vumeter_blockNumber="12"
+        vumeter:vumeter_blockSpacing="20dp"
+        vumeter:vumeter_speed="4"
+        vumeter:vumeter_startOff="true"
+        vumeter:vumeter_stopSize="5dp"/>
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tvTitle"
@@ -22,51 +40,69 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:textAlignment="center"
         android:textColor="@color/textColor"
         android:textSize="20sp"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="16dp"/>
+        />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tvError"
         style="@style/AppTheme.Base"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
         android:text="@string/error"
         android:textColor="@color/colorAccent"
         android:textSize="20sp"
-        android:gravity="center"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        />
 
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/tvSite"
-        style="@style/AppTheme.ControllerTextViewStyle"
-        android:text="@string/website"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ivPlay" />
-
-    <ImageView
-        android:id="@+id/ivPlay"
-        android:layout_width="wrap_content"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/controller"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/none"
-        android:src="@drawable/ic_start_big"
+        android:background="@color/colorPrimary"
+        android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tvShare"
-        app:layout_constraintStart_toEndOf="@+id/tvSite" />
+        >
 
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/tvShare"
-        style="@style/AppTheme.ControllerTextViewStyle"
-        android:text="@string/share"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ivPlay" />
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tvSite"
+            style="@style/AppTheme.ControllerTextViewStyle"
+            android:text="@string/website"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ivPlay"/>
+
+        <ImageView
+            android:id="@+id/ivPlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/none"
+            android:src="@drawable/ic_start_big"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tvShare"
+            app:layout_constraintStart_toEndOf="@+id/tvSite"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tvShare"
+            style="@style/AppTheme.ControllerTextViewStyle"
+            android:text="@string/share"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ivPlay"/>
+
+    </android.support.constraint.ConstraintLayout>
+
 
 </android.support.constraint.ConstraintLayout>

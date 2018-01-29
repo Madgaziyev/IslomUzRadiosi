@@ -8,15 +8,13 @@ android {
         applicationId "uz.islom.radio"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 1
-        versionName "0.1"
-//        vectorDrawables.useSupportLibrary = true
+        versionCode 3
+        versionName "0.3"
     }
     buildTypes {
         release {
-//            removeUn
-            minifyEnabled true
-            proguardFiles 'proguard-rules.pro'
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
@@ -24,7 +22,7 @@ android {
 dependencies {
     def support = "26.1.0"
     def exo = "2.6.0"
-    def eqWaves = "1.0.1"
+    def eqWaves = "1.0.15"
     def amr = "0.5"
     def constraint = "1.0.2"
 
@@ -34,6 +32,6 @@ dependencies {
     implementation "com.android.support:appcompat-v7:" + support
 //    implementation "com.android.support:support-vector-drawable:" + support
     implementation "com.google.android.exoplayer:exoplayer:" + exo
-    implementation "com.yalantis:eqwaves:" + eqWaves
+    implementation "io.gresse.hugo.vumeterlibrary:vumeterlibrary:"+eqWaves
     implementation "com.vodyasov:amr:" + amr
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/notification_root"
     android:layout_width="match_parent"
     android:layout_height="64dp"
@@ -8,7 +8,7 @@
     android:paddingStart="8dp">
 
     <ImageView
-        android:id="@+id/notification_adhanFm_image"
+        android:id="@+id/notification_image"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_gravity="start"
@@ -29,11 +29,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:maxLines="1"
-            android:padding="8dp"
+            android:maxLines="2"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="4dp"
             android:textColor="@color/colorPrimary"
-            android:textSize="16sp"
-
+            android:textSize="14sp"
+            android:ellipsize="end"
             />
 
         <TextView
@@ -41,10 +43,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:padding="8dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
             android:text="@string/app_name"
             android:textColor="@color/colorPrimary"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            />
 
     </LinearLayout>
 

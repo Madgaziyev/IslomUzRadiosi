@@ -1,10 +1,9 @@
 <resources>
-    <string name="app_name">Islom.uz радиоси</string>
-    <string name="website">Манба</string>
-    <string name="share">Улашиш</string>
-    <string name="share_head">Islom.uz радиосини юклаб олиш</string>
-    <string name="error">Қандайдир <b>хато</b> бўлди\nИнтернет уланганми?\nТекшириб, тугмани бошқатдан босиб кўринг</string>
-    <string name="settings">Дастур яхши ишлаши учун рухсатномани ёқинг</string>
-    <string name="share_link">https://ivPlay.google.com/store/apps/details?id=uz.islom.radio</string>
+    <string name="app_name">Islom.uz radiosi</string>
+    <string name="website">Manba</string>
+    <string name="share">Ulashish</string>
+    <string name="share_head">Islom.uz radiosini yuklab olish</string>
+    <string name="error">Qandaydir xato bo`ldi\nInternet ulanganmi?\nTekshirib, tugmani boshqatdan bosib ko`ring</string>
+    <string name="share_link">https://play.google.com/store/apps/details?id=uz.islom.radio</string>
     <string name="none">""</string>
 </resources>
